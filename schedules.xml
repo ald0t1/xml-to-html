@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedules>
+  <major>Computer Science</major>
+  <major>Electrical Engineering</major>
+  <major>Mechanical Engineering</major>
+  <year>First Year</year>
+  <year>Second Year</year>
+  <year>Third Year</year>
+  <year>Fourth Year</year>
+  <class>A</class>
+  <class>B</class>
+  <class>C</class>
+  <schedule major="Computer Science" year="First Year" class="A">
+    <day>Monday</day>
+    <subject>Programming Fundamentals</subject>
+    <start_time>9:00 AM</start_time>
+    <end_time>10:30 AM</end_time>
+  </schedule>
+  <schedule major="Computer Science" year="First Year" class="A">
+    <day>Monday</day>
+    <subject>Data Structures and Algorithms</subject>
+    <start_time>11:00 AM</start_time>
+    <end_time>12:30 PM</end_time>
+  </schedule>
+  <schedule major="Computer Science" year="First Year" class="A">
+    <day>Tuesday</day>
+    <subject>Web Development</subject>
+    <start_time>9:00 AM</start_time>
+    <end_time>10:30 AM</end_time>
+  </schedule>
+  <schedule major="Computer Science" year="First Year" class="A">
+    <day>Tuesday</day>
+    <subject>Database Systems</subject>
+    <start_time>11:00 AM</start_time>
+    <end_time>12:30 PM</end_time>
+  </schedule>
+  <schedule major="Computer Science" year="First Year" class="B">
+    <day>Wednesday</day>
+    <subject>Operating Systems</subject>
+    <start_time>9:00 AM</start_time>
+    <end_time>10:30 AM</end_time>
+  </schedule>
+  <schedule major="Computer Science" year="First Year" class="B">
+    <day>Wednesday</day>
+    <subject>Computer Networks</subject>
+    <start_time>11:00 AM</start_time>
+    <end_time>12:30 PM</end_time>
+  </schedule>
+</schedules>

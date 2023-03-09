@@ -1,0 +1,102 @@
+<head>
+    <script>
+        function loadSchedule() {
+            var major = document.getElementById("major").value;
+            var year = document.getElementById("year").value;
+            var classNum = document.getElementById("class").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "schedules.xml", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var xmlDoc = xhr.responseXML;
+                    var schedules = xmlDoc.getElementsByTagName("schedule");
+                    var table = document.getElementById("scheduleTable");
+                    table.innerHTML = "";
+                    for (var i = 0; i < schedules.length; i++) {
+                        if (schedules[i].getAttribute("major") == major && schedules[i].getAttribute("year") == year && schedules[i].getAttribute("class") == classNum) {
+                            var days = schedules[i].childNodes;
+                            // console.log(schedules[i].childNodes)
+                            // for (var j = 1; j < days.length; j+=2) {
+                            //     var row = table.insertRow();
+                            //     var dayCell = row.insertCell();
+                            //     var subjectCell = row.insertCell();
+                            //     var startTimeCell = row.insertCell();
+                            //     var endTimeCell = row.insertCell();
+                            //     dayCell.innerHTML = days[j].innerHTML;
+                            //     subjectCell.innerHTML = days[j].getAttribute("subject");
+                            //     startTimeCell.innerHTML = days[j].getAttribute("startTime");
+                            //     endTimeCell.innerHTML = days[j].getAttribute("endTime");
+                            // }
+                            var row = table.insertRow();
+                            for(const value of days.values()) {
+                                var dayCell = row.insertCell();
+                                if (value.innerHTML != null) {
+                                    
+                                    dayCell.innerHTML = value.innerHTML;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            };
+            xhr.send();
+        }
+
+        function populateDropdowns() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "schedules.xml", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var xmlDoc = xhr.responseXML;
+                    var majors = xmlDoc.getElementsByTagName("major");
+                    var years = xmlDoc.getElementsByTagName("year");
+                    var classes = xmlDoc.getElementsByTagName("class");
+                    var majorDropdown = document.getElementById("major");
+                    var yearDropdown = document.getElementById("year");
+                    var classDropdown = document.getElementById("class");
+                    for (var i = 0; i < majors.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = majors[i].firstChild.nodeValue;
+                        majorDropdown.add(option);
+                    }
+                    for (var i = 0; i < years.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = years[i].firstChild.nodeValue;
+                        yearDropdown.add(option);
+                    }
+                    for (var i = 0; i < classes.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = classes[i].firstChild.nodeValue;
+                        classDropdown.add(option);
+                    }
+                }
+            };
+            xhr.send();
+        }
+    </script>
+
+</head>
+
+<body onload="populateDropdowns()">
+    <select id="major">
+        <option>Select Major</option>
+    </select>
+    <select id="year">
+        <option>Select Year</option>
+    </select>
+    <select id="class">
+        <option>Select Class</option>
+    </select>
+    <button onclick="loadSchedule()">Load Schedule</button>
+    <table id="scheduleTable">
+        <tr>
+            <th>Day</th>
+            <th>Subject</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+    </table>
+</body>
+
+</html>
