@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+select {
+    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f2f2f2;
+    margin-right: 10px;
+}
+
+#timetable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#timetable th {
+    background-color: #333;
+    color: white;
+    font-weight: normal;
+    text-align: center;
+    padding: 10px;
+}
+
+#timetable td {
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+}
+
+#timetable td:not(:empty) {
+    background-color: #f2f2f2;
+}
+

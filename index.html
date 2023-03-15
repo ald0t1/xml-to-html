@@ -1,102 +1,279 @@
-<head>
-    <script>
-        function loadSchedule() {
-            var major = document.getElementById("major").value;
-            var year = document.getElementById("year").value;
-            var classNum = document.getElementById("class").value;
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "schedules.xml", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var xmlDoc = xhr.responseXML;
-                    var schedules = xmlDoc.getElementsByTagName("schedule");
-                    var table = document.getElementById("scheduleTable");
-                    table.innerHTML = "";
-                    for (var i = 0; i < schedules.length; i++) {
-                        if (schedules[i].getAttribute("major") == major && schedules[i].getAttribute("year") == year && schedules[i].getAttribute("class") == classNum) {
-                            var days = schedules[i].childNodes;
-                            // console.log(schedules[i].childNodes)
-                            // for (var j = 1; j < days.length; j+=2) {
-                            //     var row = table.insertRow();
-                            //     var dayCell = row.insertCell();
-                            //     var subjectCell = row.insertCell();
-                            //     var startTimeCell = row.insertCell();
-                            //     var endTimeCell = row.insertCell();
-                            //     dayCell.innerHTML = days[j].innerHTML;
-                            //     subjectCell.innerHTML = days[j].getAttribute("subject");
-                            //     startTimeCell.innerHTML = days[j].getAttribute("startTime");
-                            //     endTimeCell.innerHTML = days[j].getAttribute("endTime");
-                            // }
-                            var row = table.insertRow();
-                            for(const value of days.values()) {
-                                var dayCell = row.insertCell();
-                                if (value.innerHTML != null) {
-                                    
-                                    dayCell.innerHTML = value.innerHTML;
-                                }
-                            }
-                        }
-                    }
-                    
-                }
-            };
-            xhr.send();
-        }
+<!DOCTYPE html>
+<html>
 
-        function populateDropdowns() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "schedules.xml", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var xmlDoc = xhr.responseXML;
-                    var majors = xmlDoc.getElementsByTagName("major");
-                    var years = xmlDoc.getElementsByTagName("year");
-                    var classes = xmlDoc.getElementsByTagName("class");
-                    var majorDropdown = document.getElementById("major");
-                    var yearDropdown = document.getElementById("year");
-                    var classDropdown = document.getElementById("class");
-                    for (var i = 0; i < majors.length; i++) {
-                        var option = document.createElement("option");
-                        option.text = majors[i].firstChild.nodeValue;
-                        majorDropdown.add(option);
-                    }
-                    for (var i = 0; i < years.length; i++) {
-                        var option = document.createElement("option");
-                        option.text = years[i].firstChild.nodeValue;
-                        yearDropdown.add(option);
-                    }
-                    for (var i = 0; i < classes.length; i++) {
-                        var option = document.createElement("option");
-                        option.text = classes[i].firstChild.nodeValue;
-                        classDropdown.add(option);
-                    }
-                }
-            };
-            xhr.send();
-        }
-    </script>
+<head>
+  <title>XML Orari</title>
+  <link rel="stylesheet" href="style.css">
 
 </head>
 
-<body onload="populateDropdowns()">
-    <select id="major">
-        <option>Select Major</option>
-    </select>
-    <select id="year">
-        <option>Select Year</option>
-    </select>
-    <select id="class">
-        <option>Select Class</option>
-    </select>
-    <button onclick="loadSchedule()">Load Schedule</button>
-    <table id="scheduleTable">
-        <tr>
-            <th>Day</th>
-            <th>Subject</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-        </tr>
-    </table>
+<body>
+  <label for="degaDropdown">Dega:</label>
+  <select id="degaDropdown"></select>
+
+  <label for="vitiDropdown">Viti:</label>
+  <select id="vitiDropdown"></select>
+
+  <label for="paraleliDropdown">Paraleli:</label>
+  <select id="paraleliDropdown"></select>
+
+  <br><br>
+
+  <table id="timetable">
+    <thead>
+      <tr>
+        <th>Orë</th>
+        <th>E Hënë</th>
+        <th>E Martë</th>
+        <th>E Mërkurë</th>
+        <th>E Enjte</th>
+        <th>E Premte</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>08:00-09:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>09:00-10:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>10:00-11:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>11:00-12:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>12:00-13:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>13:00-14:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>14:00-15:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>15:00-16:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>16:00-17:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>17:00-18:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>18:00-19:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>19:00-20:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+      <tr>
+        <td>20:00-21:00</td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+        <td class="crow"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "timetable.xml", true);
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var xml = this.responseXML;
+
+        var degaValues = new Set();
+        var vitiValues = new Set();
+        var paraleliValues = new Set();
+        var rreshtiNodes = xml.getElementsByTagName("Rreshti");
+        for (var i = 0; i < rreshtiNodes.length; i++) {
+          var degaValue = rreshtiNodes[i].getAttribute("Dega");
+          var vitiValue = rreshtiNodes[i].getAttribute("Viti");
+          var paraleliValue = rreshtiNodes[i].getAttribute("Paraleli");
+          degaValues.add(degaValue);
+          vitiValues.add(vitiValue);
+          paraleliValues.add(paraleliValue);
+        }
+
+        var degaDropdown = document.getElementById("degaDropdown");
+        var vitiDropdown = document.getElementById("vitiDropdown");
+        var paraleliDropdown = document.getElementById("paraleliDropdown");
+        degaValues.forEach(function (value) {
+          var option = document.createElement("option");
+          option.text = value;
+          degaDropdown.add(option);
+        });
+        vitiValues.forEach(function (value) {
+          var option = document.createElement("option");
+          option.text = value;
+          vitiDropdown.add(option);
+        });
+        paraleliValues.forEach(function (value) {
+          var option = document.createElement("option");
+          option.text = value;
+          paraleliDropdown.add(option);
+        });
+
+        degaDropdown.onchange = function () {
+          populateTimetable();
+        };
+        vitiDropdown.onchange = function () {
+          populateTimetable();
+        };
+        paraleliDropdown.onchange = function () {
+          populateTimetable();
+        };
+
+        function populateTimetable() {
+          var cells = document.querySelectorAll("#timetable td");
+          for (var i = 0; i < cells.length; i++) {
+            // cells[i].innerHTML = "";
+            if (cells[i].classList.contains("crow")) {
+              cells[i].innerHTML = "";
+            }
+          }
+
+          var selectedDega = degaDropdown.options[degaDropdown.selectedIndex].text;
+          var selectedViti = vitiDropdown.options[vitiDropdown.selectedIndex].text;
+          var selectedParaleli = paraleliDropdown.options[paraleliDropdown.selectedIndex].text;
+
+          var rreshtiNodes = xml.getElementsByTagName("Rreshti");
+          for (var i = 0; i < rreshtiNodes.length; i++) {
+            var degaValue = rreshtiNodes[i].getAttribute("Dega");
+            var vitiValue = rreshtiNodes[i].getAttribute("Viti");
+            var paraleliValue = rreshtiNodes[i].getAttribute("Paraleli");
+            var lendaValue = rreshtiNodes[i].getElementsByTagName("Lenda")[0].textContent;
+            var tipiValue = rreshtiNodes[i].getElementsByTagName("Tipi")[0].textContent;
+            var pedagogValue = rreshtiNodes[i].getElementsByTagName("Pedagog")[0].textContent;
+            var ditaValue = rreshtiNodes[i].getElementsByTagName("Dita")[0].textContent;
+            var klasaValue = rreshtiNodes[i].getElementsByTagName("Klasa")[0].textContent;
+            var oraValue = rreshtiNodes[i].getElementsByTagName("Ora")[0].textContent;
+            if (degaValue === selectedDega && vitiValue === selectedViti && paraleliValue === selectedParaleli) {
+              var dayIndex = getDayIndex(ditaValue);
+              var hourIndex = getHourIndex(oraValue);
+              var cell = document.querySelector("#timetable tr:nth-child(" + (hourIndex + 1) + ") td:nth-child(" + (dayIndex + 2) + ")");
+              cell.innerHTML = lendaValue + "<br>" + tipiValue + "<br>" + pedagogValue + "<br>" + klasaValue + "<br>" + oraValue+"<br>" + ditaValue;
+            }
+          }
+        }
+
+        function getDayIndex(day) {
+          switch (day) {
+            case "E Hënë":
+              return 0;
+            case "E Martë":
+              return 1;
+            case "E Mërkurë":
+              return 2;
+            case "E Enjte":
+              return 3;
+            case "E Premte":
+              return 4;
+            default:
+              return -1;
+          }
+        }
+
+        function getHourIndex(hour) {
+          switch (hour) {
+            case "8:00-9:00":
+              return 0;
+            case "9:00-10:00":
+              return 1;
+            case "10:00-11:00":
+              return 2;
+            case "11:00-12:00":
+              return 3;
+            case "12:00-13:00":
+              return 4;
+            case "13:00-14:00":
+              return 5;
+            case "14:00-15:00":
+              return 6;
+            case "15:00-16:00":
+              return 7;
+            case "16:00-17:00":
+              return 8;
+            case "17:00-18:00":
+              return 9;
+            case "18:00-19:00":
+              return 10;
+            case "19:00-20:00":
+              return 11;
+            case "20:00-21:00":
+              return 12;
+            default:
+              return -1;
+          }
+        }
+      }
+    };
+    xmlhttp.send();
+  </script>
 </body>
 
 </html>
